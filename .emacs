@@ -160,7 +160,6 @@
                                     (access-label          . -4)
                                     (substatement-open     .  0)
                                     (statement-case-intro  .  4)
-                                    (statement-block-intro .  c-lineup-for)
                                     (case-label            .  4)
                                     (block-open            .  0)
                                     (inline-open           .  0)
@@ -171,6 +170,7 @@
     (c-echo-syntactic-information-p . t))
     "Campeanu's Big Fun C++ Style")
 
+(define-key global-map [C-tab] 'other-window)
 
 ;; ===================================================
 ;; == Editing stuff                              ---->
@@ -182,6 +182,7 @@
   (save-excursion
     (replace-string FromString ToString)
   ))
+  
 (define-key global-map [f8] 'campeanu-replace-string)
 
 (defun campeanu-replace-in-region (old-word new-word)
@@ -193,6 +194,7 @@
 		    (replace-string old-word new-word)
 		    ))
   )
+
 (define-key global-map "\el" 'campeanu-replace-in-region)
 (define-key global-map "\eo" 'query-replace)
 (define-key global-map "\eO" 'campeanu-replace-string)
@@ -441,7 +443,7 @@ and M-n or M-<down> for moving down."
   (cond ((file-exists-p buffer-file-name) t)
         ((string-match "[.]hin" buffer-file-name) (campeanu-source-format))
         ((string-match "[.]cin" buffer-file-name) (campeanu-source-format))
-        ((string-match "[.]h" buffer-file-name) (campeanu-header-format))
+        ((string-match "[.]h"   buffer-file-name) (campeanu-header-format))
         ((string-match "[.]cpp" buffer-file-name) (campeanu-source-format)))
 
   (defun campeanu-find-corresponding-file ()
@@ -468,23 +470,14 @@ and M-n or M-<down> for moving down."
     (find-file-other-window buffer-file-name)
     (campeanu-find-corresponding-file)
     (other-window -1))
-  (define-key c++-mode-map [f12] 'campeanu-find-corresponding-file)
+
+  ;; Find corresponding file
+  (define-key c++-mode-map [f12]   'campeanu-find-corresponding-file)
   (define-key c++-mode-map [M-f12] 'campeanu-find-corresponding-file-other-window)
 
   ;; Alternate bindings for F-keyless setups (ie MacOS X terminal).
   (define-key c++-mode-map "\ec" 'campeanu-find-corresponding-file)
   (define-key c++-mode-map "\eC" 'campeanu-find-corresponding-file-other-window)
-
-  (define-key c++-mode-map "\ej" 'imenu)
-
-  (define-key c++-mode-map "\e." 'c-fill-paragraph)
-
-  (define-key c++-mode-map "\e/" 'c-mark-function)
-
-  (define-key c++-mode-map "\e " 'set-mark-command)
-  (define-key c++-mode-map "\eq" 'append-as-kill)
-  (define-key c++-mode-map "\ea" 'yank)
-  (define-key c++-mode-map "\ez" 'kill-region)
 
   ;; Error parsing devenv.com .
   (add-to-list 'compilation-error-regexp-alist 'campeanu-devenv)
@@ -497,41 +490,14 @@ and M-n or M-<down> for moving down."
 ;; == C++ mode handling                         <----
 ;; ===================================================
 
-
-
-;; ===================================================
-;; == Window Commands
-;; ===================================================
-
-(defun w32-restore-frame ()
-    "Restore a minimized frame"
-     (interactive)
-     (w32-send-sys-command 61728))
-
-(defun maximize-frame ()
-    "Maximize the current frame"
-     (interactive)
-     (when casey-aquamacs (aquamacs-toggle-full-frame))
-     (when casey-win32 (w32-send-sys-command 61488)))
-
-;; ===================================================
-;; == Window Commands
-;; ===================================================
-
-
-
+;; Errors
 (define-key global-map [f9]  'first-error)
 (define-key global-map [f10] 'previous-error)
 (define-key global-map [f11] 'next-error)
 
-(define-key global-map "\e[" 'start-kbd-macro)
-(define-key global-map "\e]" 'end-kbd-macro)
-(define-key global-map "\e'" 'call-last-kbd-macro)
-
 ;; Buffers
 (define-key global-map "\er" 'revert-buffer)
 (define-key global-map "\ek" 'kill-this-buffer)
-
 
 
 ;; ===================================================
