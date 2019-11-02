@@ -1,3 +1,15 @@
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; ===================================================
 ;; == The default costum
 ;; ===================================================
@@ -7,29 +19,25 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; Base customizations
- '(custom-enabled-themes (quote (misterioso)))
- '(scroll-bar-mode nil)
- '(menu-bar-mode nil)
- '(tool-bar-mode nil)
-
- ;; My emacs customizations
  '(auto-save-default nil)
  '(auto-save-interval 0)
  '(auto-save-list-file-prefix nil)
  '(auto-save-timeout 0)
  '(auto-show-mode t t)
+ '(custom-enabled-themes (quote (misterioso)))
  '(delete-auto-save-files nil)
  '(delete-old-versions (quote other))
  '(imenu-auto-rescan t)
  '(imenu-auto-rescan-maxout 500000)
  '(make-backup-file-name-function (quote ignore))
  '(make-backup-files nil)
+ '(menu-bar-mode nil)
  '(mouse-wheel-follow-mouse nil)
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (15)))
- )
+ '(package-selected-packages (quote (magit)))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
